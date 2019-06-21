@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Article;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redis;
+use Illuminate\Support\Facades\Auth;
 
 class ArticlesController extends Controller
 {
@@ -15,7 +16,7 @@ class ArticlesController extends Controller
      */
     public function index()
     {
-        $articles = Article::all();
+        $articles = Article::paginate(5);
 
         $reViewIds = Redis::zrevrange('user.1.reView', 0, 2);
 
@@ -108,5 +109,31 @@ class ArticlesController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     * Favorite a particular post
+     *
+     * @param  Post $post
+     * @return Response
+     */
+    public function favoritePost(Article $article)
+    {
+        Auth::user()->favorites()->attach($article->id);
+
+        return back();
+    }
+
+    /**
+     * Unfavorite a particular post
+     *
+     * @param  Post $post
+     * @return Response
+     */
+    public function unFavoritePost(Article $article)
+    {
+        Auth::user()->favorites()->detach($article->id);
+
+        return back();
     }
 }

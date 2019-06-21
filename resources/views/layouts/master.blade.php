@@ -23,7 +23,7 @@
 
                 <a class="nav-link" href="/">Recently View</a>
                 <a class="nav-link" href="/rank">Most View</a>
-                <a class="nav-link" href="/">Newest Article</a>
+                <a class="nav-link" href="/">Favorites Article</a>
             </li>
         </ul>
     </div>

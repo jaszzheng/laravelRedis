@@ -22,10 +22,13 @@ use Illuminate\Support\Facades\Redis;
 
 Route::get('/', 'ArticlesController@index');
 
-Route::get('/rank', 'ArticlesController@rank');
+Route::get('rank', 'ArticlesController@rank');
 
 Route::resource('article', 'ArticlesController');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::post('favorite/{article}', 'ArticlesController@favoritePost');
+Route::post('unfavorite/{article}', 'ArticlesController@unFavoritePost');
+Route::get('favorites', 'UsersController@myFavorites')->middleware('auth');
+

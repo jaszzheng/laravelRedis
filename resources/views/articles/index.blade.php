@@ -1,44 +1,74 @@
-@extends('layouts.master')
+@extends('layouts.app')
 
 @section('content')
 
-    <div class="card">
-        <div class="card-header">
-            <h1>Recently View Articles</h1>
-        </div>
+    <div class="container" id="app">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="page-header">
+                    <h1>Recently View Articles</h1>
+                </div>
             <ul>
                 @foreach($reView as $article)
-                    <div class="card-body">
-                        <blockquote class="blockquote mb-0">
+                    <div class="card mb-3">
+                        <div class="card-header">
                     <li>
-                        <a href="{{ route('article.show', $article->id) }}">{{ $article->title }}</a>
+                        <a href="{{ route('article.show', $article->id) }}">NO.{{ $article->id }}</a>
                     </li>
-                            <footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer>
-                        </blockquote>
+                        </div>
+
+                        <div class="card-body">
+                            <blockquote class="blockquote mb-0">
+                            {{ $article->title }}
+                            </blockquote>
+                            <div class="panel-footer">
+
+                            </div>
+                        </div>
                     </div>
+
                 @endforeach
 
             </ul>
-    </div>
+            </div>
 
-    <div class="card">
-        <div class="card-header">
-            <h1>All Articles</h1>
-        </div>
+
+            <div class="col-md-8 col-md-offset-2">
+                <div class="page-header">
+                    <h1>All Articles</h1>
+                </div>
 
             <ul>
                 @foreach($articles as $article)
-                    <div class="card-body">
-                        <blockquote class="blockquote mb-0">
-                    <li>
-                        <a href="{{ route('article.show', $article->id) }}">{{ $article->title }}</a>
-                    </li>
-                            <footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer>
-                        </blockquote>
-                    </div>
-                @endforeach
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            <li>
+                                <a href="{{ route('article.show', $article->id) }}">NO.{{ $article->id }}</a>
+                            </li>
+                        </div>
 
+                        <div class="card-body">
+                            <blockquote class="blockquote mb-0">
+                                {{ $article->title }}
+                            </blockquote>
+                        </div>
+                    </div>
+                    @if (Auth::check())
+                        <div class="panel-footer">
+                            <favorite
+                                :article={{ $article->id }}
+                                    :favorited={{ $article->favorited() ? 'true' : 'false' }}
+                            ></favorite>
+                        </div>
+                    @endif
+                @endforeach
+                    {{ $articles->links() }}
             </ul>
+
+            </div>
+
+        </div>
+
     </div>
 @endsection
 
