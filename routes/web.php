@@ -24,6 +24,10 @@ Route::get('/', 'ArticlesController@index');
 
 Route::get('rank', 'ArticlesController@rank');
 
+//Route::get('/', function () {
+//    return back();
+//});
+
 Route::resource('article', 'ArticlesController');
 
 Auth::routes();

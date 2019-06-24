@@ -8,35 +8,38 @@
                 <div class="page-header">
                     <h1>My Favorites</h1>
                 </div>
-            <ul>
+
+
                 @forelse($myFavorites as $myFavorite)
                     <div class="card mb-3">
                         <div class="card-header">
-                    <li>
+
                         <a href="{{ route('article.show', $myFavorite->id) }}">NO.{{ $myFavorite->id }}</a>
-                    </li>
+
                         </div>
 
                         <div class="card-body">
-                            <blockquote class="blockquote mb-0">
+                            <h3 class="card-title">
                             {{ $myFavorite->title }}
-                            </blockquote>
+                            </h3>
+                        </div>
                             @if (Auth::check())
-                            <div class="panel-footer">
+                            <div class="card-footer">
                                 <favorite
                                     :article={{ $myFavorite->id }}
                                         :favorited={{ $myFavorite->favorited() ? 'true' : 'false' }}
                                 ></favorite>
                             </div>
                             @endif
-                        </div>
-                        @empty
-                            <p>You have no favorite posts.</p>
+
                     </div>
+                        @empty
+
+                            <p>You have no favorite posts.</p>
 
                 @endforelse
 
-            </ul>
+
             </div>
 
         </div>

@@ -5,6 +5,7 @@
     <div class="container" id="app">
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
+                @if (Auth::check())
                 <div class="page-header">
                     <h1>Recently View Articles</h1>
                 </div>
@@ -18,18 +19,17 @@
                         </div>
 
                         <div class="card-body">
-                            <blockquote class="blockquote mb-0">
+                            <h3 class="card-title">
                             {{ $article->title }}
-                            </blockquote>
-                            <div class="panel-footer">
+                            </h3>
 
-                            </div>
                         </div>
                     </div>
 
                 @endforeach
 
             </ul>
+                @endif
             </div>
 
 
@@ -48,19 +48,20 @@
                         </div>
 
                         <div class="card-body">
-                            <blockquote class="blockquote mb-0">
+                            <h3 class="card-title">
                                 {{ $article->title }}
-                            </blockquote>
+                            </h3>
                         </div>
-                    </div>
+
                     @if (Auth::check())
-                        <div class="panel-footer">
+                        <div class="card-footer">
                             <favorite
                                 :article={{ $article->id }}
                                     :favorited={{ $article->favorited() ? 'true' : 'false' }}
                             ></favorite>
                         </div>
                     @endif
+                    </div>
                 @endforeach
                     {{ $articles->links() }}
             </ul>

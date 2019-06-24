@@ -16,26 +16,36 @@ class ArticlesController extends Controller
      */
     public function index()
     {
+        if (Auth::check())
+        {
+            $user = Auth::user();
+
+            $reViewIds = Redis::zrevrange("user.{$user->id}.reView", 0, 2);
+
+            $reView = collect($reViewIds)->map(function ($id){
+                return Article::find($id);
+            });
+        }
+
         $articles = Article::paginate(5);
-
-        $reViewIds = Redis::zrevrange('user.1.reView', 0, 2);
-
-        $reView = collect($reViewIds)->map(function ($id){
-            return Article::find($id);
-        });
 
         return view('articles.index', compact('articles', 'reView'));
     }
 
     public function rank()
     {
-        $articles = Article::all();
+        if (Auth::check()) {
 
-        $rankIds = Redis::zrevrange('user.1.rank', 0, 2);
+            $user = Auth::user();
 
-        $rank = collect($rankIds)->map(function ($id){
-            return Article::find($id);
-        });
+            $rankIds = Redis::zrevrange("user.{$user->id}.rank", 0, 2);
+
+            $rank = collect($rankIds)->map(function ($id) {
+                return Article::find($id);
+            });
+        }
+
+        $articles = Article::paginate(5);
 
         return view('articles.rank', compact('articles', 'rank'));
     }
@@ -69,10 +79,14 @@ class ArticlesController extends Controller
      */
     public function show(Article $article)
     {
+        if (Auth::check()) {
 
-        Redis::zadd('user.1.reView', time(), $article->id);
+            $user = Auth::user();
 
-        Redis::zincrby('user.1.rank', 1, $article->id);
+            Redis::zadd("user.{$user->id}.reView", time(), $article->id);
+
+            Redis::zincrby("user.{$user->id}.rank", 1, $article->id);
+        }
 
         return view('articles.show', compact('article'));
     }
