@@ -13,12 +13,14 @@ I also use redis to implemented some real time function, such as the most view a
 
 After download the project, 
 
-1. run composer install 
+1.run composer install 
 
-2. copy env.example file to a new env file and config your DB setting
+2.copy env.example file to a new env file and config your DB setting
 
-3. run php artisan key:generate
+3.run php artisan migrate
 
-4.run php artisan migrate
+4.run php artisan db:seed 
 
-5.run php artisan db:seed
+5.run php artisan key:generate 
+
+6.visit http://127.0.0.1:8000
