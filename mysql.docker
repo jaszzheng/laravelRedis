@@ -1,0 +1,9 @@
+# REDINDEX
+# use mysql image
+FROM mysql:5.7
+
+# copy files
+COPY ./mysqld.cnf /etc/mysql/mysql.conf.d/mysqld.cnf
+
+# expose port
+EXPOSE 3306
