@@ -8,8 +8,7 @@ Ihis project simply had implemented a favorite function which user can mark on a
 
 I also use redis to implemented some function, such as the most view articles, show the last article which user had read.
 
-How to run this project ?
-After download the project,
+## How to run this project ?
 
 1.run composer install
 
@@ -22,3 +21,8 @@ After download the project,
 5.run php artisan key:generate
 
 6.visit http://127.0.0.1:8000
+
+
+## project screenshots
+![LR1](https://user-images.githubusercontent.com/33443385/63865911-fa440900-c9e4-11e9-9086-d01f56c79fe5.png)
+![LR2](https://user-images.githubusercontent.com/33443385/63865919-fd3ef980-c9e4-11e9-9171-1439e168608c.png)
